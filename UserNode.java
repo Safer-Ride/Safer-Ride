@@ -11,6 +11,9 @@ public class UserNode {
 	boolean isEventRequest;
 	boolean isAccepted;
 	int currentCost;
+	int timeCost = 30;
+	int userCost = 0; 
+
 
 	public UserNode(String id, DummyGPSLocationVar start, DummyGPSLocationVar end,
 			boolean isShared, boolean forEvent, boolean isAcc ) {
@@ -78,11 +81,29 @@ public class UserNode {
 	public void setEventRequest(boolean isEventRequest) {
 		this.isEventRequest = isEventRequest;
 	}
+	
+	public int getTimeCost() {
+		return timeCost;
+	}
+
+	public void setTimeCost(int timeCost) {
+		this.timeCost = timeCost;
+	}
+
+	public int getUserCost() {
+		return userCost;
+	}
+
+	public void setUserCost(int userCost) {
+		this.userCost = userCost;
+	}
 
 	//Generates Costs:
 	//Not time bound:
 	public int distanceFromDriverCost(DummyGPSLocationVar driverLocation) {
-		int distanceBetweenTwoLocations = 0; //some method that gets the distance between the user and the driver 
+		///////NEED MAP API////////
+		int distanceBetweenTwoLocations = 0; //some method that gets the distance between the user and the driver in miles  
+		// if the distacne is less than 10, 
 		if (distanceBetweenTwoLocations > 10) {
 			//max cost set to 50
 			return 50;
@@ -91,22 +112,18 @@ public class UserNode {
 			return 50 - 5 * (int)(10 - distanceBetweenTwoLocations);
 		}
 	}
-	
-	//Time bound Costs:
-	public int userTimeWaitedCost() {
-		return 30;
-	}	
-	
+
 	//Evaluation Function (time bounded)
 	public int UserCost (DummyGPSLocationVar driverLocation) {
-		int userCost = 0;
 		if (this.isCarpool == false) {
-			userCost+= 10;
+			this.setUserCost(this.getUserCost() + 10);
 			}
 		if (this.isEventRequest == false) {
-			userCost+= 10;
+			this.setUserCost(this.getUserCost() + 10);
 		}
-		userCost += this.distanceFromDriverCost(driverLocation)+ this.userTimeWaitedCost();
-		return userCost;
+		this.setUserCost(this.getUserCost() + this.distanceFromDriverCost(driverLocation) + this.getTimeCost());
+		currentCost = getUserCost();
+		return getUserCost();
 	}
+
 }
