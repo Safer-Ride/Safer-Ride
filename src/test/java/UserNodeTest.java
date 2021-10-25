@@ -12,6 +12,30 @@ class UserNodeTest {
     }
 
     @Test
+    void setAndGetUserID(){
+        user.setUserID("Joseph");
+        assertEquals("Joseph", user.getUserID());
+    }
+
+    @Test
+    void setAccepted(){
+        user.setAccepted(true);
+        assertEquals(true, user.isAccepted());
+    }
+
+    @Test
+    void setCarpool(){
+        user.setCarpool(true);
+        assertEquals(true, user.isCarpool());
+    }
+
+    @Test
+    void setEventRequest(){
+        user.setEventRequest(true);
+        assertEquals(true, user.isEventRequest());
+    }
+
+    @Test
     void distanceFromDriverCost() {
         assertEquals(0, user.distanceFromDriverCost(new DummyGPSLocationVar()));
     }
