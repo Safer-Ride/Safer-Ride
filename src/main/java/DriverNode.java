@@ -6,7 +6,11 @@ public class DriverNode {
 	int currentCapacity;
 	boolean driverState;
 	PriorityQueue <UserNode> Assignments;
-	
+
+	public DriverNode(DummyGPSLocationVar location) {
+		this.DriverCurrentLocation = location;
+	}
+
 	public DriverNode(DummyGPSLocationVar location, int maxCap, int currCap, boolean status, PriorityQueue <UserNode>schedule) {
 		this.DriverCurrentLocation = location;
 		this.taxiCapacity = maxCap;

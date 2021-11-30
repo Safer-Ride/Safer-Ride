@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
+import java.util.*;
 
 public class RideScheduler extends TimeBoundCosts{
 
@@ -17,14 +18,15 @@ public class RideScheduler extends TimeBoundCosts{
 		Comparator<UserNode> CostComparator= new Comparator<UserNode>() {
 			@Override
 			public int compare(UserNode child, UserNode nodesInQueue) { 
-				if (child.UserCost(driver.getDriverCurrentLocation()) <= nodesInQueue.UserCost(driver.getDriverCurrentLocation())) {
+				/*if (child.UserCost(driver.getDriverCurrentLocation()) <= nodesInQueue.UserCost(driver.getDriverCurrentLocation())) {
 					return (1); 
 				}
 				else if (child.UserCost(driver.getDriverCurrentLocation()) >= nodesInQueue.UserCost(driver.getDriverCurrentLocation())) {
 					return (-1); 
 				}
 				else
-					return (0); 
+					return (0); */
+				return Integer.compare(child.distanceFromDriverCost(driver.DriverCurrentLocation), nodesInQueue.distanceFromDriverCost(driver.DriverCurrentLocation));
 			}			
 		};
 		PriorityQueue<UserNode> uniqueAssignments = new PriorityQueue<UserNode>(50,CostComparator);
@@ -32,6 +34,10 @@ public class RideScheduler extends TimeBoundCosts{
 			uniqueAssignments.add(userRequests.get(i));
 		}
 		driver.setAssignments(uniqueAssignments);
+		UserNode[] arr = uniqueAssignments.toArray(new UserNode[uniqueAssignments.size()]);
+		if (arr[0] != null) {
+			System.out.println(arr[0].UserID + ": ETA of " + arr[0].distanceFromDriverCost(driver.getDriverCurrentLocation()) / 60 + " minutes");
+		}
 	}
 	
 	

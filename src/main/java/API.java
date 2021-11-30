@@ -20,7 +20,7 @@ public class API {
 		catch (Exception ex) {
 			System.out.println("Couldn't get API");
 		} */
-        getMinDuration(47.606209, -122.332069, 47.676891, -122.205986);
+        //getMinDuration(47.606209, -122.332069, 47.676891, -122.205986);
     }
 
     public static int getMinDuration(double lat1, double long1, double lat2, double long2) {
