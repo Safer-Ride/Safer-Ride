@@ -37,6 +37,7 @@ public class RideScheduler extends TimeBoundCosts{
 		UserNode[] arr = uniqueAssignments.toArray(new UserNode[uniqueAssignments.size()]);
 		if (arr[0] != null) {
 			System.out.println(arr[0].UserID + ": ETA of " + arr[0].distanceFromDriverCost(driver.getDriverCurrentLocation()) / 60 + " minutes");
+			System.out.println(arr[0].UserID + " Location: " + API.coordsToAddress(arr[0].UserRequestStartLocation));
 		}
 	}
 	

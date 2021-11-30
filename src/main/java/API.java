@@ -45,16 +45,44 @@ public class API {
             while ((output = br.readLine()) != null) {
                 sb.append(output);
             }
-            System.out.println(sb.toString());
+            //System.out.println(sb.toString());
             String s = sb.toString();
             String[] arr = s.split("\"value\" : ");
             int duration = new Scanner(arr[2]).useDelimiter("\\D+").nextInt();
-            System.out.println("\n" + duration);
+            //System.out.println("\n" + duration);
             return duration;
         }
         catch (Exception ex) {
             System.out.println("Couldn't access API correctly");
         }
         return -1;
+    }
+
+    public static String coordsToAddress(DummyGPSLocationVar loc) {
+        try {
+            URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + loc.getLat() + "%2C" + loc.getLong() + "&key=AIzaSyDpQAp0FfH4cDRtiXNlwutqJsLuuCAuQa4");
+            System.out.println(url.toString());
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            // handle error response code it occurs
+            int responseCode = con.getResponseCode();
+            InputStream inputStream = con.getErrorStream();
+            //InputStream inputStream = con.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader((con.getInputStream())));
+            StringBuilder sb = new StringBuilder();
+            String output;
+            while ((output = br.readLine()) != null) {
+                sb.append(output);
+            }
+            //System.out.println(sb.toString());
+            String s = sb.toString();
+            String[] arr = s.split("\"formatted_address\" : \"");
+            String location = arr[1].split("\"")[0];
+            return location;
+        }
+        catch (Exception ex) {
+            System.out.println("Couldn't access API correctly");
+        }
+        return "";
     }
 }
